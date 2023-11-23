@@ -1,24 +1,16 @@
-# README
+# Reproducing unexpected `Datadog.configure_onto` behaviour on Redis instance
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Issue: DataDog/dd-trace-rb#3277
 
-Things you may want to cover:
+This repository aims to reproduce an issue with `Datadog.configure_onto` when
+it is used with a Redis instance that was initialized before the Datadog redis
+tracing is configured.
+When that happens, the `configure_onto` will actually have no effect.
 
-* Ruby version
+To reproduce:  
+- run the server (`bundle exec rails s`)
+- make a request to `/test` (`curl localhost:3000/test`
+- observe on the server terminal that spans for the `$redis` instance have the
+default `"redis"` service name, while spans for the `$redis_2` instance have
+the custom `"my-other-redis"` service name.
 
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
